@@ -115,12 +115,12 @@
 	<div class="mt-0.5 space-y-3 overflow-y-scroll scrollbar-hidden h-full">
 		{#if adminConfig !== null}
 			<div class="">
-				<div class="mb-3.5">
-					<div class=" mb-2.5 text-base font-medium">{$i18n.t('General')}</div>
+				<!-- <div class="mb-3.5"> -->
+					<!-- <div class=" mb-2.5 text-base font-medium">{$i18n.t('General')}</div> -->
 
-					<hr class=" border-gray-100 dark:border-gray-850 my-2" />
+					<!-- <hr class=" border-gray-100 dark:border-gray-850 my-2" /> -->
 
-					<div class="mb-2.5">
+					<!-- <div class="mb-2.5">
 						<div class=" mb-1 text-xs font-medium flex space-x-2 items-center">
 							<div>
 								{$i18n.t('Version')}
@@ -166,9 +166,9 @@
 								{$i18n.t('Check for updates')}
 							</button>
 						</div>
-					</div>
+					</div> -->
 
-					<div class="mb-2.5">
+					<!-- <div class="mb-2.5">
 						<div class="flex w-full justify-between items-center">
 							<div class="text-xs pr-2">
 								<div class="">
@@ -212,11 +212,11 @@
 								</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
-					<div class="mb-2.5">
-						<div class="flex w-full justify-between items-center">
-							<div class="text-xs pr-2">
+					<!-- <div class="mb-2.5"> -->
+						<!-- <div class="flex w-full justify-between items-center"> -->
+							<!-- <div class="text-xs pr-2">
 								<div class="">
 									{$i18n.t('License')}
 								</div>
@@ -229,16 +229,16 @@
 										'Upgrade to a licensed plan for enhanced capabilities, including custom theming and branding, and dedicated support.'
 									)}
 								</a>
-							</div>
+							</div> -->
 
 							<!-- <button
 								class="flex-shrink-0 text-xs px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-850 dark:hover:bg-gray-800 transition rounded-lg font-medium"
 							>
 								{$i18n.t('Activate')}
 							</button> -->
-						</div>
-					</div>
-				</div>
+						<!-- </div> -->
+					<!-- </div> -->
+				<!-- </div> -->
 
 				<div class="mb-3">
 					<div class=" mb-2.5 text-base font-medium">{$i18n.t('Authentication')}</div>
