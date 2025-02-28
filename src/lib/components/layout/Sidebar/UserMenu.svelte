@@ -17,6 +17,10 @@
 	export let className = 'max-w-[240px]';
 
 	const dispatch = createEventDispatcher();
+// 查看人数
+	onMount(() => {
+		console.log($activeUserIds?.length);
+	});
 </script>
 
 <DropdownMenu.Root

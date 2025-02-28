@@ -20,6 +20,7 @@
 	const i18n = getContext('i18n');
 
 	export let screenCaptureHandler: Function;
+	// 这个函数在父组件中被定义，并在使用子组件时作为 prop 传递给它。
 	export let uploadFilesHandler: Function;
 	export let inputFilesHandler: Function;
 
@@ -37,6 +38,7 @@
 	}
 
 	let fileUploadEnabled = true;
+	// 如果用户是管理员，或者用户具有文件上传的权限，则 fileUploadEnabled 为 true，否则为 false
 	$: fileUploadEnabled = $user.role === 'admin' || $user?.permissions?.chat?.file_upload;
 
 	const init = async () => {
@@ -174,6 +176,7 @@
 				content={!fileUploadEnabled ? $i18n.t('You do not have permission to upload files') : ''}
 				className="w-full"
 			>
+			<!-- 上传文件处 -->
 				<DropdownMenu.Item
 					class="flex gap-2 items-center px-3 py-2 text-sm font-medium cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl {!fileUploadEnabled
 						? 'opacity-50'

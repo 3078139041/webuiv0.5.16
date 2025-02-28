@@ -1500,11 +1500,7 @@ async def process_chat_response(
                                 
                                 if DETECT_REASONING_CONTENT:
                                     if reasoning_value is not None:
-                                        if value is not None and value.strip() != "":
-                                            value = f"{reasoning_value}\n</think>\n{value}"
-                                            DETECT_REASONING_CONTENT = False
-                                        else:
-                                            value = reasoning_value                                            
+                                        value = reasoning_value
                                     else:
                                         DETECT_REASONING_CONTENT = False
                                         value = f"</think>\n{value}"

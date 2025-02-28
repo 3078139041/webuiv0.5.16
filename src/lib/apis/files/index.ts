@@ -1,6 +1,8 @@
 import { WEBUI_API_BASE_URL } from '$lib/constants';
 
+// 导出一个异步函数 uploadFile，用于上传文件
 export const uploadFile = async (token: string, file: File) => {
+	// 创建一个新的 FormData 实例，用于构建表单数据
 	const data = new FormData();
 	data.append('file', file);
 	let error = null;

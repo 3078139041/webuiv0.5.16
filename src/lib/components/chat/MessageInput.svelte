@@ -146,11 +146,17 @@
 		}
 	};
 
+	// 上传文件的方法
 	const uploadFileHandler = async (file, fullContext: boolean = false) => {
+		// 检查用户是否是管理员，或者是否有上传文件的权限。
+		// 如果没有权限，显示错误提示并返回。
+
 		if ($_user?.role !== 'admin' && !($_user?.permissions?.chat?.file_upload ?? true)) {
 			toast.error($i18n.t('You do not have permission to upload files.'));
 			return null;
 		}
+		// 生成一个唯一的临时 ID（tempItemId）。
+		// 创建一个临时文件项（fileItem），用于跟踪文件的上传状态。
 
 		const tempItemId = uuidv4();
 		const fileItem = {
@@ -166,14 +172,18 @@
 			itemId: tempItemId,
 			...(fullContext ? { context: 'full' } : {})
 		};
+		// 如果文件大小为 0，显示错误提示并返回。
 
 		if (fileItem.size == 0) {
 			toast.error($i18n.t('You cannot upload an empty file.'));
 			return null;
 		}
-
+		// 将临时文件项添加到文件列表中。
 		files = [...files, fileItem];
 		// Check if the file is an audio file and transcribe/convert it to text file
+
+		// 如果文件是音频文件（如 MP3、WAV 等），调用 transcribeAudio 函数将其转录为文本。
+		// 将转录后的文本封装为新的 File 对象，并更新文件项的名称和大小。
 		if (['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/x-m4a'].includes(file['type'])) {
 			const res = await transcribeAudio(localStorage.token, file).catch((error) => {
 				toast.error(`${error}`);
@@ -189,7 +199,9 @@
 				fileItem.size = file.size;
 			}
 		}
-
+		// 调用 uploadFile 函数将文件上传到服务器。
+		// 如果上传成功，更新文件项的状态、ID、集合名称和 URL。
+		// 如果上传失败，从文件列表中移除临时文件项。
 		try {
 			// During the file upload, file content is automatically extracted.
 			const uploadedFile = await uploadFile(localStorage.token, file);
@@ -1086,6 +1098,11 @@
 
 								<div class=" flex justify-between mt-1.5 mb-2.5 mx-0.5 max-w-full">
 									<div class="ml-1 self-end gap-0.5 flex items-center flex-1 max-w-[80%]">
+										
+										<!-- uploadFilesHandler 触发本地文件上传 -->
+										 <!-- 仅仅只会打开文件选择器 -->
+										<!-- 当调用 uploadFilesHandler 时，它会模拟点击一个隐藏的文件输入框（filesInputElement），从而打开系统的文件选择对话框，允许用户从本地设备选择文件 -->
+										<!-- 两个“打开文件选择器”的逻辑，那是因为它们分别处理了两种不同的文件来源。并不是重复，而是为了满足不同的需求 -->
 										<InputMenu
 											bind:selectedToolIds
 											{screenCaptureHandler}
@@ -1093,10 +1110,15 @@
 											uploadFilesHandler={() => {
 												filesInputElement.click();
 											}}
+
 											uploadGoogleDriveHandler={async () => {
+											// 这是一个函数属性，表示处理从 Google Drive 上传文件的逻辑。
+												
 												try {
 													const fileData = await createPicker();
+													
 													if (fileData) {
+														// 表示文件的二进制数据
 														const file = new File([fileData.blob], fileData.name, {
 															type: fileData.blob.type
 														});
@@ -1199,7 +1221,7 @@
 											{/if}
 										</div>
 									</div>
-									{#if platform == false}
+									<!-- {#if platform == false}
 										<div class="self-end flex space-x-1 mr-1 shrink-0">
 											{#if !history?.currentId || history.messages[history.currentId]?.done == true}
 												<Tooltip content={$i18n.t('Record voice')}>
@@ -1370,10 +1392,10 @@
 												</div>
 											{/if}
 										</div>
-									{/if}
+									{/if} -->
 
 									<!-- 是手机端的时候 -->
-									{#if platform != false}
+									<!-- {#if platform != false} -->
 										{#if !history.currentId || history.messages[history.currentId]?.done == true}
 											{#if prompt === ''}
 												<div class=" flex items-center">
@@ -1457,7 +1479,7 @@
 												</Tooltip>
 											</div>
 										{/if}
-									{/if}
+									<!-- {/if} -->
 								</div>
 							</div>
 						</form>
